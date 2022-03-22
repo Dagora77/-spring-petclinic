@@ -1,0 +1,28 @@
+#!groovy
+
+pipeline {
+    agent any
+    stages {
+        stage('clone code') {
+            steps {
+               git branch: 'main', credentialsId: 'my-github', url: 'git@github.com:Dagora77/-spring-petclinic.git' 
+            }
+        }
+        stage('build') {
+            steps {
+                sh './mvnw package'
+            }
+        }
+        stage('create image') {
+            steps {
+                sh './mvnw spring-boot:build-image'
+            }
+        }
+        stage('push to artifactory storage') {
+            steps {
+                sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT localhost:5000/${APP_NAME}:${BUILD_NUMBER}'
+                sh 'docker push localhost:5000/${APP_NAME}:${BUILD_NUMBER}'
+            }
+        }
+    }
+  }
