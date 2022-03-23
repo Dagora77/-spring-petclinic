@@ -1,0 +1,2 @@
+[qa_env]
+qa1 ansible_host=10.0.10.57
