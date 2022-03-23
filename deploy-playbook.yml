@@ -1,0 +1,14 @@
+---
+- name: Run pet-clinic application
+  hosts: qa_env
+  become: yes
+
+  tasks:
+
+  - name: Run pet-clinic application container
+    docker_container:
+      name: pet-clinic
+      image: localhost:5000/mypetclinic
+      restart: true
+      ports:
+        - "8080:8080"
