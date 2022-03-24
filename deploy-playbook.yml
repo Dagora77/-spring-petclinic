@@ -6,4 +6,4 @@
   tasks:
 
   - name: Run pet-clinic application container
-    command: docker run -d hello-world
+    command: docker run --rm -d -p 1234:8080 tomcat:latest
