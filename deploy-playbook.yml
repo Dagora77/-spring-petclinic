@@ -1,64 +1,9 @@
 ---
-- name: Install Apache and Upload my Web Page
-  hosts: all
+- name: Run pet-clinic application
+  hosts: qa_env
   become: yes
 
-  vars:
-    source_folder: ./MyWebSite2
-    destin_folder: /var/www/html
-
   tasks:
-  - name: Check and print Linux version
-    debug: var=ansible_os_family
 
-
-  - block: #RedHat
-
-     - name: Install Apache Web Server for RedHat
-       yum: name=httpd state=latest
-
-     - name: Start WebServer and make enable on boot for RedHat
-       service: name=httpd state=started enabled=yes
-   
-    when: ansible_os_family == "RedHat"
-
-  - block: #Debian
-
-     - name: Run the equivalent of "apt-get update" as a separate step
-       apt:
-         update_cache: yes
-
-
-     - name: Install Apache Web Server for Ubuntu
-       apt: name=apache2 state=latest
-    
-     - name: Start WebServer and make enable on boot for Debian
-       service: name=apache2 state=started enabled=yes
-    
-    when: ansible_os_family == "Debian"
-
-  - name: data container
-    docker:
-         name: mydata
-         image: busybox
-         state: present
-         volumes:
-         - /data
-  - name: Copy myHomePage to Servers
-    copy: src={{ item }} dest={{ destin_folder }} mode=0555
-    with_fileglob: "{{ source_folder }}/*.*"
-#    loop:
-#     - "index.html"
-#     - "333.jpg"       
-    notify:
-      - Restart Apache RedHat
-      - Restart Apache Debian
-
-  handlers:
-  - name: Restart Apache RedHat
-    service: name=httpd state=restarted
-    when: ansible_os_family == "RedHat"
-
-  - name: Restart Apache Debian
-    service: name=apache2 state=restarted
-    when: ansible_os_family == "Debian"
+  - name: Run pet-clinic application container
+    command: docker run -d hello-world
