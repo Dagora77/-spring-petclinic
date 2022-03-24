@@ -9,6 +9,7 @@
     docker_container:
       name: hello
       image: hello-world
+      state: present
       restart: true
       ports:
         - "8080:8080"
