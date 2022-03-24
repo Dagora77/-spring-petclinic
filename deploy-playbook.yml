@@ -37,7 +37,13 @@
     
     when: ansible_os_family == "Debian"
 
- 
+   - name: data container
+        docker:
+           name: mydata
+           image: busybox
+           state: present
+           volumes:
+           - /data
   - name: Copy myHomePage to Servers
     copy: src={{ item }} dest={{ destin_folder }} mode=0555
     with_fileglob: "{{ source_folder }}/*.*"
