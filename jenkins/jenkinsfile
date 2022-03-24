@@ -23,11 +23,6 @@ pipeline {
                 sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT localhost:5000/${APP_NAME}:${BUILD_NUMBER}'
                 sh 'docker push localhost:5000/${APP_NAME}:${BUILD_NUMBER}'
             }
-        stage('execute ansible'){
-             steps{
-                ansiblePlaybook credentialsId: 'test_connect_to_ec2_server', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'hosts.txt', playbook: 'playbook5.yml'
-             }
-            }
         }
     }
   }
