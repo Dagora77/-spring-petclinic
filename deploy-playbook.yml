@@ -4,6 +4,8 @@
   become: yes
 
   tasks:
+  - name: Ensure that no container is running
+    command: docker rm -f 10.0.10.184:5000/mypetclinic || true  
 
   - name: Pull pet-clinic application container
     command: docker pull -rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic
