@@ -2,6 +2,9 @@
 
 pipeline {
     agent any
+    options {
+        ansiColor('xterm')
+    }
     stages {
         stage('clone code') {
             steps {
@@ -24,7 +27,7 @@ pipeline {
                 sh 'docker push 10.0.10.184:5000/${APP_NAME}:${BUILD_NUMBER}'
             }
         }
-        stage('Execute Ansible'){
+        stage('deploy to server by ansible playbook'){
              steps{
                 ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: 'deploy-playbook.yml'
              }
