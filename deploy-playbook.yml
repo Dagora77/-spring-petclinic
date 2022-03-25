@@ -5,5 +5,8 @@
 
   tasks:
 
+  - name: Pull pet-clinic application container
+    command: docker pull -rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic
+    
   - name: Run pet-clinic application container
-    command: docker run --rm -d -p 1234:8080 tomcat:latest
+    command: docker pull -rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic
