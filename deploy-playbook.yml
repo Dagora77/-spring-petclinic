@@ -2,6 +2,7 @@
 - name: Run pet-clinic application
   hosts: qa_env
   become: yes
+  local_user: ec2-user
 
   tasks:
   - name: Ensure that no container is running
