@@ -23,8 +23,8 @@ pipeline {
         }
         stage('push to artifactory storage') {
             steps {
-                sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}'
-                sh 'docker push 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}'
+                sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic'
+                sh 'docker push 10.0.10.184:5000/mypetclinic'
             }
         }
         stage('deploy to server by ansible playbook'){
