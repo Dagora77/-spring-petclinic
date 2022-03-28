@@ -5,7 +5,7 @@
 
   tasks:
   - name: Build docker image
-    command: docker build -t 10.0.10.184:5000/mypetclinic .
+    command: docker build -t 10.0.10.184:5000/mypetclinic:latest .
 
   - name: Pull pet-clinic application container
-    command: docker pull 10.0.10.184:5000/mypetclinic
+    command: docker pull 10.0.10.184:5000/mypetclinic:latest
