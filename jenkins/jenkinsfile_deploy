@@ -1,0 +1,15 @@
+#!groovy
+
+pipeline {
+    agent any
+    options {
+        ansiColor('xterm')
+    }
+    stages {
+        stage('deploy to server by ansible playbook'){
+             steps{
+                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: 'build-playbook.yml'
+             }
+        }
+    }
+  }
