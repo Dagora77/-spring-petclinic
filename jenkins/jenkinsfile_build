@@ -20,13 +20,13 @@ pipeline {
         }
         stage('push to artifactory storage') {
             steps {
-                sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:latest && docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}_${BUILD_ID}'
-                sh 'docker push 10.0.10.184:5000/mypetclinic:latest && docker push 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}_${BUILD_ID}'
+                sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:latest && docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}.${BUILD_ID}'
+                sh 'docker push 10.0.10.184:5000/mypetclinic:latest && docker push 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}.${BUILD_ID}'
             }
         }
         stage('build result notification'){
             steps{
-                mail bcc: '', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Check console output at $BUILD_URL to view the results.', cc: '', from: '', replyTo: '', subject: 'Mypetclinic build result', to: 'dagora77@gmail.com'
+                mail bcc: '', body: '${PROJECT_NAME} - Build # ${BUILD_NUMBER} - ${BUILD_STATUS}: Check console output at ${BUILD_URL} to view the results.', cc: '', from: '', replyTo: '', subject: 'Mypetclinic build result', to: 'dagora77@gmail.com'
             }
         }
     }
