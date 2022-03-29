@@ -2,9 +2,6 @@
 
 pipeline {
     agent any
-    options {
-        ansiColor('xterm')
-    }
     stages {
         stage('clone code') {
             steps {
@@ -26,11 +23,6 @@ pipeline {
                 sh 'docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:latest && docker tag spring-petclinic:2.6.0-SNAPSHOT 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}_${BUILD_ID}'
                 sh 'docker push 10.0.10.184:5000/mypetclinic:latest && docker push 10.0.10.184:5000/mypetclinic:${BUILD_NUMBER}_${BUILD_ID}'
             }
-        }
-        stage('deploy to server by ansible playbook'){
-             steps{
-                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: 'build-playbook.yml'
-             }
         }
     }
   }
