@@ -9,7 +9,7 @@ pipeline {
         stage('Captcha') {
             steps {
                 script {
-                    if (env.Capture_txt == 'ConfirmOperation') {
+                    if (env.CAPTCHA == 'ConfirmOperation') {
                         echo "Captcha confirmed, go on..."
                     } else {
                         error "Captcha FAILED!!!"
