@@ -1,0 +1,14 @@
+---
+- name: Run pet-clinic application
+  hosts: prod_env
+  become: yes
+
+  tasks:
+  - name: Ensure that no container is running
+    command: docker rm -f mypetclinic || true  
+
+  - name: Pull pet-clinic application container
+    command: docker pull 10.0.10.184:5000/mypetclinic:latest
+    
+  - name: Run pet-clinic application container
+    command: docker run --name mypetclinic --rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic:latest
