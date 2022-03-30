@@ -1,6 +1,6 @@
 ---
 - name: Run pet-clinic application
-  hosts: prod_env
+  hosts: servers_env
   become: yes
 
   tasks:
@@ -11,4 +11,4 @@
     command: docker pull 10.0.10.184:5000/mypetclinic:latest
     
   - name: Run pet-clinic application container
-    command: docker run --name mypetclinic --rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic:latest
+    command: docker run --name prod_mypetclinic --rm -d -p 8080:8080 10.0.10.184:5000/mypetclinic:latest
