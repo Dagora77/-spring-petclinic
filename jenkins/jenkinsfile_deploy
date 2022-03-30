@@ -20,7 +20,7 @@ pipeline {
         }
         stage('deploy to server by ansible playbook'){
              steps{
-                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: '${ENV_NAME}'
+                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: """${ENV_NAME}.yml"""
              }
         }
     }
