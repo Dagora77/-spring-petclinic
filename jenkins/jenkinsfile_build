@@ -26,7 +26,7 @@ pipeline {
         }
         stage('build result notification'){
             steps{
-                mail bcc: '', body: '${PROJECT_NAME} - Build # ${BUILD_NUMBER} - ${BUILD_STATUS}: Check console output at ${BUILD_URL} to view the results.', cc: '', from: '', replyTo: '', subject: 'Mypetclinic build result', to: 'dagora77@gmail.com'
+                mail bcc: '', body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p><p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",, cc: '', from: '', replyTo: '', subject: 'Mypetclinic build result', to: 'dagora77@gmail.com'
             }
         }
     }
