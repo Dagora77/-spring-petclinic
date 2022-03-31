@@ -11,4 +11,4 @@
     command: docker pull 10.0.11.150:5000/mypetclinic:latest
     
   - name: Run pet-clinic application container
-    command: docker run --name qa_mypetclinic --restart=always --rm -d -p 8080:8080 10.0.11.150:5000/mypetclinic:latest
+    command: docker run --name qa_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/mypetclinic:latest
