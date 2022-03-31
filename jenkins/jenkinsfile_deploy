@@ -29,6 +29,7 @@ pipeline {
                     if (env.ENV_NAME == 'mypetclinic_qa_deploy') {
                         sh 'curl -I localhost:8080'
                     } else if (env.ENV_NAME == 'mypetclinic_staging_deploy') {
+                        sh 'sleep 5'
                         sh 'curl -I localhost:8082'
                     } else if (env.ENV_NAME == 'mypetclinic_prod_deploy') {
                         sh 'curl -I localhost:8081'
