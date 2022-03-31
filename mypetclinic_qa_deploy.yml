@@ -12,3 +12,6 @@
     
   - name: Run pet-clinic application container
     command: docker run --name qa_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/mypetclinic:latest
+    
+  - name: Ensure that application is working
+    command: curl http://3.145.115.160:8080
