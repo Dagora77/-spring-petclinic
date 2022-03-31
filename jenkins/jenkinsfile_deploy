@@ -23,5 +23,10 @@ pipeline {
                 ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: """${ENV_NAME}.yml"""
              }
         }
+        stage('test'){
+            steps{
+               sh 'curl -I localhost:8080'
+            }
+        }
     }
   }
