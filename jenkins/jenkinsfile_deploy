@@ -23,9 +23,20 @@ pipeline {
                 ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', inventory: 'hosts', playbook: """${ENV_NAME}.yml"""
              }
         }
-        stage('test'){
-            steps{
-               sh 'curl -I localhost:8080'
+        stage('Ensure that application is running'){
+            steps{               
+               script {
+                    if (env.ENV_NAME == 'mypetclinic_qa_deploy') {
+                        sh 'curl -I localhost:8080'
+                    } else if (env.ENV_NAME == 'mypetclinic_staging_deploy') {
+                        sh 'curl -I localhost:8082'
+                    } else if (env.ENV_NAME == 'mypetclinic_prod_deploy') {
+                        sh 'curl -I localhost:8081'
+                    } else {
+                        error "Applicatin isn't working..."
+                        return
+                    }
+                }
             }
         }
     }
