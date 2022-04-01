@@ -21,18 +21,20 @@ pipeline {
                 script {
                     if (env.ENV_NAME == 'mypetclinic_qa') {
                         sshagent(['mypetclinic_server']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f qa_mypetclinic || true "
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name qa_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/${DOCKER_IMAGE}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f mypetclinic_qa || true "
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name mypetclinic_qa --rm -d -p 8080:8080 10.0.11.150:5000/${DOCKER_IMAGE}"
                         }
                     
                     } else if (env.ENV_NAME == 'mypetclinic_staging') {
-                        sshagent(['prod-qa-env']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"
+                        sshagent(['mypetclinic_server']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f mypetclinic_staging || true "
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name mypetclinic_staging --rm -d -p 8080:8081 10.0.11.150:5000/${DOCKER_IMAGE}"
                         }
                         
                     } else if (env.ENV_NAME == 'mypetclinic_prod') {
-                        sshagent(['prod-qa-env']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"
+                        sshagent(['mypetclinic_server']) {
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f mypetclinic_prod || true "
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name mypetclinic_prod --rm -d -p 8080:8082 10.0.11.150:5000/${DOCKER_IMAGE}"
                         }
                         
                     } else {
