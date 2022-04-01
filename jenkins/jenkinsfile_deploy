@@ -22,18 +22,18 @@ pipeline {
             steps {
                 echo "Run docker container"
                 script {
-                    if (env.build_env == 'mypetclinic_qa') {
+                    if (env.ENV_NAME == 'mypetclinic_qa') {
                         sshagent(['mypetclinic_server']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f qa_mypetclinic || true "
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name qa_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/${DOCKER_IMAGE}"
                         }
                     
-                    } else if (env.build_env == 'mypetclinic_staging') {
+                    } else if (env.ENV_NAME == 'mypetclinic_staging') {
                         sshagent(['prod-qa-env']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"
                         }
                         
-                    } else if (env.build_env == 'mypetclinic_prod') {
+                    } else if (env.ENV_NAME == 'mypetclinic_prod') {
                         sshagent(['prod-qa-env']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.91.163 ${dockerRun}"
                         }
