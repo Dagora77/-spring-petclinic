@@ -39,7 +39,8 @@ pipeline {
                         }
                         
                     } else {
-                        echo 'Something went wrong'
+                        error 'Something went wrong'
+                        return
                     }
                 }
                 
