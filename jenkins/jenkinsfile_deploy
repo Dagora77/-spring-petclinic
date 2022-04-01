@@ -64,7 +64,7 @@ pipeline {
                 }
             }
         }
-        stage('build result notification'){
+        stage('Build result notification'){
             steps{
                 mail bcc: '', body: """SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_ID}]':Check console output at '${env.BUILD_URL}'""", cc: '', from: '', replyTo: '', subject: 'Mypetclinic build result', to: 'dagora77@gmail.com'
             }
