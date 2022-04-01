@@ -24,8 +24,8 @@ pipeline {
                 script {
                     if (env.build_env == 'qa_mypetclinic') {
                         sshagent(['mypetclinic_server']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f prod_mypetclinic || true "
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name prod_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/${DOCKER_IMAGE}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker rm -f qa_mypetclinic || true "
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.10.57 docker run --name qa_mypetclinic --rm -d -p 8080:8080 10.0.11.150:5000/${DOCKER_IMAGE}"
                         }
                     
                     } else if (env.build_env == 'staging_mypetclinic') {
