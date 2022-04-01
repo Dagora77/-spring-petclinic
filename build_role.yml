@@ -4,12 +4,12 @@
   become: yes
 
   tasks:
-  - name: Creating a Docker file
+  - name: Creating Dockerfile
     file:
       path: "Dockerfile"
       state: touch
       
-  - name: add services
+  - name: Filling Dockerfile
     blockinfile: 
       state: present
       dest: Dockerfile
