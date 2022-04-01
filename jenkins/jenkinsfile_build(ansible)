@@ -1,0 +1,25 @@
+#!groovy
+
+pipeline {
+    agent any
+    options {
+        ansiColor('xterm')
+    }
+    stages {
+        stage('clone code') {
+            steps {
+               git branch: 'main', credentialsId: 'my-github', url: 'git@github.com:Dagora77/-spring-petclinic.git' 
+            }
+        }
+        stage('build') {
+            steps {
+                sh './mvnw package'
+            }
+        }
+        stage('create image and push to registry'){
+             steps{
+                ansiblePlaybook become: true, colorized: true, disableHostKeyChecking: true, credentialsId: 'ansible-servers', installation: 'ansible', playbook: 'build_role.yml'
+             }
+        }
+    }
+  }
