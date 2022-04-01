@@ -1,10 +1,7 @@
 #!groovy
 
 pipeline {
-    agent any
-    options {
-        ansiColor('xterm')
-    }    
+    agent any  
     stages {
         stage('Captcha') {
             steps {
@@ -50,11 +47,11 @@ pipeline {
             steps{               
                script {
                     if (env.ENV_NAME == 'mypetclinic_qa_deploy') {
-                        sh 'curl -I localhost:8080'
+                        sh 'curl -I 10.0.10.57:8080'
                     } else if (env.ENV_NAME == 'mypetclinic_staging_deploy') {
-                        sh 'curl -I localhost:8082'
+                        sh 'curl -I 10.0.10.57:8082'
                     } else if (env.ENV_NAME == 'mypetclinic_prod_deploy') {
-                        sh 'curl -I localhost:8081'
+                        sh 'curl -I 10.0.10.57:8081'
                     } else {
                         error "Applicatin isn't working..."
                         return
