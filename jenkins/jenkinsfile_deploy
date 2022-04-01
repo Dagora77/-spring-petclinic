@@ -52,8 +52,10 @@ pipeline {
                         sh 'sleep 60'
                         sh 'curl -v 10.0.10.57:8080'
                     } else if (env.ENV_NAME == 'mypetclinic_staging') {
+                        sh 'sleep 60'
                         sh 'curl -I 10.0.10.57:8081'
                     } else if (env.ENV_NAME == 'mypetclinic_prod') {
+                        sh 'sleep 60'
                         sh 'curl -I 10.0.10.57:8082'
                     } else {
                         error "Applicatin isn't working..."
