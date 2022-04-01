@@ -4,6 +4,21 @@
   become: yes
 
   tasks:
+  - name: Creating a Docker file
+    file:
+      path: "Dockerfile"
+      state: touch
+      
+  - name: add services
+    blockinfile: 
+      state: present
+      dest: Dockerfile
+      content: |
+        FROM openjdk:8-jre-alpine3.9
+        COPY target/spring-petclinic-2.6.0-SNAPSHOT.jar  /spring-petclinic*.jar
+        CMD ["java", "-jar", "/spring-petclinic*.jar"]
+    
+  
   - name: Build docker image
     command: docker build -t 10.0.10.184:5000/mypetclinic:latest .
 
