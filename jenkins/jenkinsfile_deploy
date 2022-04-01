@@ -46,12 +46,12 @@ pipeline {
         stage('Ensure that application is running'){
             steps{               
                script {
-                    if (env.ENV_NAME == 'mypetclinic_qa_deploy') {
+                    if (env.ENV_NAME == 'mypetclinic_qa') {
                         sh 'curl -I 10.0.10.57:8080'
-                    } else if (env.ENV_NAME == 'mypetclinic_staging_deploy') {
-                        sh 'curl -I 10.0.10.57:8082'
-                    } else if (env.ENV_NAME == 'mypetclinic_prod_deploy') {
+                    } else if (env.ENV_NAME == 'mypetclinic_staging') {
                         sh 'curl -I 10.0.10.57:8081'
+                    } else if (env.ENV_NAME == 'mypetclinic_prod') {
+                        sh 'curl -I 10.0.10.57:8082'
                     } else {
                         error "Applicatin isn't working..."
                         return
