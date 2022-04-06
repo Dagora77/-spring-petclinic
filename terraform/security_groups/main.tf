@@ -93,3 +93,37 @@ resource "aws_security_group" "tools_sc" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "dtr_sc" {
+  name        = "${var.env_dtr}_app"
+  description = "${var.env_dtr}_app"
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
+  tags = {
+    Name = "${var.env_dtr}_app"
+  }
+
+  dynamic "ingress" {
+    for_each = var.allow_ports_dtr
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["10.0.0.0/16"]
+    }
+  }
+
+  ingress {
+    description = "SSH from my IP"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["77.87.158.69/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

@@ -40,6 +40,14 @@ data "terraform_remote_state" "efs" {
     region = "us-east-1"
   }
 }
+data "terraform_remote_state" "dtr" {
+  backend = "s3"
+  config = {
+    bucket = "oyamkovyi-3242423-rs"
+    key    = "final_project/dtr/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
 
 //=========================================================
 //Create insctance for Jenkins server and other tools
@@ -84,11 +92,10 @@ resource "aws_instance" "jenkins" {
       "sudo mkdir /mnt/efs_dtr",
       "sudo chown ec2-user /mnt/efs_dtr",
       "sudo mount -t efs -o tls ${data.terraform_remote_state.efs.outputs.dtr_id}:/ /mnt/efs_dtr",
-      "sed -i 's/local_ip/${self.private_ip}/' /tmp/daemon.json",
+      "sed -i 's/local_ip/${data.terraform_remote_state.dtr.outputs.registry_private_ip}/' /tmp/daemon.json",
       "sudo mv /tmp/daemon.json /etc/docker/daemon.json",
       "sudo systemctl restart docker",
       "sudo docker run -d --name myjenkins --rm -u root -p 8080:8080 -v /mnt/efs_tools/jenkins:/var/jenkins_home -v $(which docker):/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v /home/ec2-user:/home dagora77/myjenkins",
-      "sudo docker run -d --name trustedreg --rm -p 5000:5000 -v /mnt/efs_dtr/trusted_registry/trustedreg:/trusted_registry/ registry:2",
       "df -T"
     ]
   }
