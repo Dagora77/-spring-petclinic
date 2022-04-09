@@ -9,11 +9,13 @@ pipeline {
             }
         }
        stage('K8SDeploy'){
-            kubernetesDeploy(
-            configs: 'MyAwesomeApp/myperclinic-boot.yml',
-            kubeconfigId: 'K8S',
-            enableConfigSubstitution: true
-                )
+           steps{
+             kubernetesDeploy(
+             configs: 'MyAwesomeApp/myperclinic-boot.yml',
+             kubeconfigId: 'K8S',
+             enableConfigSubstitution: true
+            )
+           }    
        }
     }
   }
