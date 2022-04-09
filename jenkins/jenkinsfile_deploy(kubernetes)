@@ -3,6 +3,11 @@
 pipeline {
     agent any
     stages {
+       stage('clone code') {
+            steps {
+               git branch: 'main', credentialsId: 'my-github', url: 'git@github.com:Dagora77/-spring-petclinic.git' 
+            }
+        }
        stage('K8SDeploy'){
             kubernetesDeploy(
             configs: 'MyAwesomeApp/myperclinic-boot.yml',
