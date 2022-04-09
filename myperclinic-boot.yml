@@ -19,3 +19,17 @@ spec:
         ports:
         - containerPort: 8085
 
+# service type loadbalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mypetclinic-app-svc
+spec:
+  selector:
+    app: mypetclinic-app-app
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+  type: LoadBalancer
