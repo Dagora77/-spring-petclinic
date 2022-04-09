@@ -4,11 +4,11 @@ variable "region" {
 
 
 variable "env" {
-  default = "tools"
+  default = "main"
 }
 
 
 
 variable "instance_type" {
-  default = "t2.micro"
+  default = "t2.medium"
 }

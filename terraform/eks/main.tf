@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
 
 //---------------------------------------------------
 // Create eks cluster
-/*
+
 resource "aws_eks_cluster" "app" {
   name     = "app"
   role_arn = aws_iam_role.eks.arn
@@ -120,6 +120,7 @@ resource "aws_eks_node_group" "app" {
   node_group_name = "petclinic"
   node_role_arn   = aws_iam_role.node_app.arn
   subnet_ids      = [data.terraform_remote_state.network.outputs.public_a_id, data.terraform_remote_state.network.outputs.public_b_id]
+  instance_types  = [var.instance_type_nodes]
 
   scaling_config {
     desired_size = 1
@@ -131,14 +132,12 @@ resource "aws_eks_node_group" "app" {
     max_unavailable = 1
   }
 
-  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
-  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly
   ]
-}*/
+}
 //---------------------------------------------------
 // Create host to contorl EKS
 
@@ -169,13 +168,13 @@ resource "aws_instance" "bastion" {
   tags = {
     Name = "${var.env}_bastion"
   }
-}
-/*
+
+
   depends_on = [
     aws_eks_cluster.app
   ]
+}
 
-*/
 resource "aws_key_pair" "bastion" {
   key_name   = "bastion-key"
   public_key = file("id_rsa.pub")

@@ -85,7 +85,8 @@ resource "aws_instance" "registry" {
       "sudo systemctl enable docker",
       "sudo usermod -a -G docker ec2-user",
       "sudo mv /tmp/daemon.json /etc/docker/daemon.json",
-      "sudo docker run -d --name myregistry --restart=always -p 5000:5000 registry:2",
+      "sudo service docker restart",
+      "sudo docker start myregistry",
       "df -T"
     ]
   }

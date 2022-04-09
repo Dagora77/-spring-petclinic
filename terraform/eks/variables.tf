@@ -9,3 +9,7 @@ variable "env" {
 variable "instance_type" {
   default = "t2.micro"
 }
+
+variable "instance_type_nodes" {
+  default = "t2.micro"
+}

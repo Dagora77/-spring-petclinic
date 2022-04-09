@@ -1,0 +1,15 @@
+#!groovy
+
+pipeline {
+    agent any
+    stages {
+       stage('K8SDeploy'){
+            kubernetesDeploy(
+            configs: 'MyAwesomeApp/myperclinic-boot.yml',
+            kubeconfigId: 'K8S',
+            enableConfigSubstitution: true
+                )
+       }
+    }
+  }
+chuckNorris()
