@@ -11,7 +11,7 @@ pipeline {
        stage('K8SDeploy'){
            steps{
              kubernetesDeploy(
-             configs: 'MyAwesomeApp/myperclinic-boot.yml',
+             configs: 'myperclinic-boot.yml',
              kubeconfigId: 'K8S',
              enableConfigSubstitution: true
             )
