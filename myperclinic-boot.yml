@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mypetclinic-app
-        image: 10.0.11.150:5000/mypetclinic:latest
+        image: httpd:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
