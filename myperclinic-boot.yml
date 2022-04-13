@@ -17,7 +17,7 @@ spec:
         image: httpd:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8085
+        - containerPort: 8080
 
 # service type loadbalancer
 ---
@@ -30,6 +30,6 @@ spec:
     app: mypetclinic-app-app
   ports:
     - protocol: TCP
-      port: 8085
-      targetPort: 8085
+      port: 8080
+      targetPort: 8080
   type: LoadBalancer
